@@ -12,10 +12,6 @@ module Simplemailr
       @auth = { "X-AccountIdentifier" => account_identifier, "X-APIKey" => api_key }
     end
 
-# HTTParty.post("http://rubygems.org/api/v1/gems/httparty/owners",
-#     :query => { :email => "alan+thinkvitamin@carsonified.com" },
-#     :headers => { "Authorization" => "THISISMYAPIKEYNOREALLY"})
-
     def identify(attributes)
       create_or_update(attributes)
     end
@@ -37,11 +33,6 @@ module Simplemailr
     private
 
     def create_event_transaction(url, event_descriptor, attributes = {})
-      # HTTParty.post("http://simplemailr.dev" + event_transaction_path,
-      #   :query => { :event_descriptor => event_descriptor, :data => { :account_id => account_id, :description => description, :content => content } },
-      #   :headers => @auth)
-
-
       body = { :event_descriptor => event_descriptor, :data => attributes }
       body[:timestamp] = attributes[:timestamp] if valid_timestamp?(attributes[:timestamp])
       verify_response(self.class.post(url, options.merge(:body => body)))
@@ -49,9 +40,7 @@ module Simplemailr
 
     def create_or_update(attributes = {})
       raise MissingIdAttributeError.new("Must provide a customer id") unless attributes[:id]
-
       url = customer_path(attributes[:id])
-
       verify_response(self.class.put(url, options.merge(:body => attributes)))
     end
 
