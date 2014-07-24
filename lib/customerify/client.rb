@@ -1,9 +1,9 @@
 require 'httparty'
 
-module Simplemailr
+module Customerify
   class Client
     include HTTParty
-    base_uri 'http://simplemailr.dev'
+    base_uri 'http://customerify.dev'
 
     class MissingIdAttributeError < RuntimeError; end
     class InvalidResponse < RuntimeError; end
@@ -64,7 +64,7 @@ module Simplemailr
       if response.code >= 200 && response.code < 300
         response
       else
-        raise InvalidResponse.new("Simplemailr API returned a bad response: #{response.code}")
+        raise InvalidResponse.new("Customerify API returned a bad response: #{response.code}")
       end
     end
 

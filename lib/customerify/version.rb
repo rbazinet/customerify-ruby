@@ -1,3 +1,3 @@
-module Simplemailr
+module Customerify
   VERSION = "0.1.0"
 end
